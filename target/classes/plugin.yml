@@ -1,0 +1,9 @@
+name: mvjob
+version: '0.1'
+main: fr.mvivibe.mvjob.Mvjob
+api-version: '1.21'
+
+commands:
+  mvjob:
+    description: gere le plugin mvjob
+    usage: /mvjob
