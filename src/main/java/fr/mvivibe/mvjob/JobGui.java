@@ -27,86 +27,86 @@ public class JobGui {
         ItemStack minerLvl = new ItemStack(Material.DIAMOND_PICKAXE);
         ItemMeta minerLvlMeta = minerLvl.getItemMeta();
         minerLvlMeta.setDisplayName("§bMiner §7- §eLevel §f" + job.lvl_miner);
-        minerLvlMeta.setLore(Arrays.asList("§7Niveau actuel du métier de mineur"));
+        minerLvlMeta.setLore(Arrays.asList("§7Miner's level"));
         minerLvl.setItemMeta(minerLvlMeta);
 
         ItemStack minerXp = new ItemStack(Material.COAL_ORE);
         ItemMeta minerXpMeta = minerXp.getItemMeta();
         minerXpMeta.setDisplayName("§bMiner §7- §bXP §f" + job.xp_miner);
-        minerXpMeta.setLore(Arrays.asList("§7Expérience totale du métier de mineur"));
+        minerXpMeta.setLore(Arrays.asList("§7Total miner's xp"));
         minerXp.setItemMeta(minerXpMeta);
 
         // Lumberjack
         ItemStack lumberLvl = new ItemStack(Material.IRON_AXE);
         ItemMeta lumberLvlMeta = lumberLvl.getItemMeta();
         lumberLvlMeta.setDisplayName("§aLumberjack §7- §eLevel §f" + job.lvl_lumberjack);
-        lumberLvlMeta.setLore(Arrays.asList("§7Niveau actuel du métier de bûcheron"));
+        lumberLvlMeta.setLore(Arrays.asList("§7lumberjack's level"));
         lumberLvl.setItemMeta(lumberLvlMeta);
 
         ItemStack lumberXp = new ItemStack(Material.OAK_LOG);
         ItemMeta lumberXpMeta = lumberXp.getItemMeta();
         lumberXpMeta.setDisplayName("§aLumberjack §7- §bXP §f" + job.xp_lumberjack);
-        lumberXpMeta.setLore(Arrays.asList("§7Expérience totale du métier de bûcheron"));
+        lumberXpMeta.setLore(Arrays.asList("§7Total lumberjack's xp"));
         lumberXp.setItemMeta(lumberXpMeta);
 
         // Hunter
         ItemStack hunterLvl = new ItemStack(Material.BOW);
         ItemMeta hunterLvlMeta = hunterLvl.getItemMeta();
         hunterLvlMeta.setDisplayName("§cHunter §7- §eLevel §f" + job.lvl_hunter);
-        hunterLvlMeta.setLore(Arrays.asList("§7Niveau actuel du métier de chasseur"));
+        hunterLvlMeta.setLore(Arrays.asList("§7Hunter's level"));
         hunterLvl.setItemMeta(hunterLvlMeta);
 
         ItemStack hunterXp = new ItemStack(Material.ARROW);
         ItemMeta hunterXpMeta = hunterXp.getItemMeta();
         hunterXpMeta.setDisplayName("§cHunter §7- §bXP §f" + job.xp_hunter);
-        hunterXpMeta.setLore(Arrays.asList("§7Expérience totale du métier de chasseur"));
+        hunterXpMeta.setLore(Arrays.asList("§7Total hunter's xp"));
         hunterXp.setItemMeta(hunterXpMeta);
 
         // Farmer
         ItemStack farmerLvl = new ItemStack(Material.GOLDEN_HOE);
         ItemMeta farmerLvlMeta = farmerLvl.getItemMeta();
         farmerLvlMeta.setDisplayName("§eFarmer §7- §eLevel §f" + job.lvl_farmer);
-        farmerLvlMeta.setLore(Arrays.asList("§7Niveau actuel du métier de fermier"));
+        farmerLvlMeta.setLore(Arrays.asList("§7Farmer's level"));
         farmerLvl.setItemMeta(farmerLvlMeta);
 
         ItemStack farmerXp = new ItemStack(Material.WHEAT);
         ItemMeta farmerXpMeta = farmerXp.getItemMeta();
         farmerXpMeta.setDisplayName("§eFarmer §7- §bXP §f" + job.xp_farmer);
-        farmerXpMeta.setLore(Arrays.asList("§7Expérience totale du métier de fermier"));
+        farmerXpMeta.setLore(Arrays.asList("§7Total farmer's xp"));
         farmerXp.setItemMeta(farmerXpMeta);
 
         // Fisher
         ItemStack fisherLvl = new ItemStack(Material.FISHING_ROD);
         ItemMeta fisherLvlMeta = fisherLvl.getItemMeta();
         fisherLvlMeta.setDisplayName("§9Fisher §7- §eLevel §f" + job.lvl_fisher);
-        fisherLvlMeta.setLore(Arrays.asList("§7Niveau actuel du métier de pêcheur"));
+        fisherLvlMeta.setLore(Arrays.asList("§7Fisher's level"));
         fisherLvl.setItemMeta(fisherLvlMeta);
 
         ItemStack fisherXp = new ItemStack(Material.COD);
         ItemMeta fisherXpMeta = fisherXp.getItemMeta();
         fisherXpMeta.setDisplayName("§9Fisher §7- §bXP §f" + job.xp_fisher);
-        fisherXpMeta.setLore(Arrays.asList("§7Expérience totale du métier de pêcheur"));
+        fisherXpMeta.setLore(Arrays.asList("§7Total fisher's xp"));
         fisherXp.setItemMeta(fisherXpMeta);
 
         // Builder
         ItemStack builderLvl = new ItemStack(Material.BRICKS);
         ItemMeta builderLvlMeta = builderLvl.getItemMeta();
         builderLvlMeta.setDisplayName("§6Builder §7- §eLevel §f" + job.lvl_builder);
-        builderLvlMeta.setLore(Arrays.asList("§7Niveau actuel du métier de constructeur"));
+        builderLvlMeta.setLore(Arrays.asList("§7Builder's level"));
         builderLvl.setItemMeta(builderLvlMeta);
 
         ItemStack builderXp = new ItemStack(Material.OAK_PLANKS);
         ItemMeta builderXpMeta = builderXp.getItemMeta();
         builderXpMeta.setDisplayName("§6Builder §7- §bXP §f" + job.xp_builder);
-        builderXpMeta.setLore(Arrays.asList("§7Expérience totale du métier de constructeur"));
+        builderXpMeta.setLore(Arrays.asList("§7Total builder's xp"));
         builderXp.setItemMeta(builderXpMeta);
 
         // Statistiques globales
         ItemStack global = new ItemStack(Material.NETHER_STAR);
         ItemMeta globalMeta = global.getItemMeta();
-        globalMeta.setDisplayName("§d§lStatistiques globales");
+        globalMeta.setDisplayName("§d§lGobal stats");
         globalMeta.setLore(Arrays.asList(
-                "§7Total niveaux : §f" + (
+                "§7Total level : §f" + (
                         job.lvl_miner + job.lvl_lumberjack + job.lvl_hunter +
                                 job.lvl_farmer + job.lvl_fisher + job.lvl_builder),
                 "§7Total XP : §f" + (

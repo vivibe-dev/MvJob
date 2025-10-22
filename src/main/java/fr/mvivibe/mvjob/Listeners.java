@@ -36,8 +36,8 @@ public class Listeners implements Listener {
         meta.setDisplayName("§6Job");
 
         List<String> lore = new ArrayList<>();
-        lore.add("§bCliquez dessus");
-        lore.add("§bPour ouvrir le menu de progression");
+        lore.add("§bClick on it");
+        lore.add("§bTo open progress menu");
         lore.add("§0§kID_JOB_ITEM");
         meta.setLore(lore);
 

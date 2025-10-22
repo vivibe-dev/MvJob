@@ -128,7 +128,7 @@ public class Reward {
             if (result != null) {
                 // Nécessite que le BlockBreakEvent annule le drop du minerai brut.
                 block.getWorld().dropItemNaturally(block.getLocation(), result);
-                player.sendMessage("§6Mineur §7→ §eFusion arcanique déclenchée !");
+                player.sendMessage("§6Miner §7→ §eAuto Smelt !");
             }
         }
         // Nv 2 (Toucher Délicat) et Nv 3 (Résistance Tellurique) sont gérés ailleurs.
@@ -146,7 +146,7 @@ public class Reward {
                     }
                 }
             }
-            player.sendMessage("§3Mineur §7→ §aMini Vein Miner !");
+            player.sendMessage("§3Miner §7→ §aMini Vein Miner !");
         }
     }
 
@@ -159,7 +159,7 @@ public class Reward {
         if (lvlLumberjack >= 1 && block.getType().toString().contains("LOG")) {
             if (!(random.nextDouble() < 0.35))return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20 * 5, 0));
-            player.sendMessage("§3Bûcheron §7→ §aSève Énergisante !");
+            player.sendMessage("§3lumberjack §7→ §aEnergising !");
         }
 
         // --- Nv 2: Morsure de la Hache (Réparation de la hache) ---
@@ -170,7 +170,7 @@ public class Reward {
             ItemStack logDrop = new ItemStack(block.getType(), 1);
 
             block.getWorld().dropItemNaturally(block.getLocation(), logDrop);
-            player.sendMessage("§3Bûcheron §7→ §aCoup Puissant ! (Double Bûche)");
+            player.sendMessage("§3lumberjack §7→ §aPowerful hit ! (Double log)");
         }
 
         // --- Nv 5: Abattage Massif (Récursion - Doit être placé en premier sur les logs!) ---
@@ -181,7 +181,7 @@ public class Reward {
                 // Appel de la méthode récursive dans JobsManager (voir section 2)
                 JobsManager.breakConnectedLogs(block, player, 1000);
 
-                player.sendMessage("§3Bûcheron §7→ §aAbattage Massif !");
+                player.sendMessage("§3lumberjack §7→ §aCut the tree !");
 
                 // NOTE TRÈS IMPORTANTE : Si ceci est déclenché dans un BlockBreakEvent,
                 // il FAUT annuler l'événement dans le Listener
@@ -207,7 +207,7 @@ public class Reward {
 
             if (saplingType != null) {
                 block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(saplingType));
-                player.sendMessage("§3Bûcheron §7→ §aMain verte ! (+1 Pousse)");
+                player.sendMessage("§3lumberjack §7→ §aGreen hand !");
             }
         }
     }
@@ -223,7 +223,7 @@ public class Reward {
             for (ItemStack drop : drops) {
                 block.getWorld().dropItemNaturally(block.getLocation(), drop.clone());
             }
-            player.sendMessage("§2Fermier §7→ §aBonne récolte ! (Double Drop)");
+            player.sendMessage("§2Farmer §7→ §aGood harvest ! (Double Drop)");
         }
 
         // Nv 2: Semences Rapides (accélère la pousse des cultures voisines)
@@ -239,7 +239,7 @@ public class Reward {
                     }
                 }
             }
-            player.sendMessage("§2Fermier §7→ §aSemences Rapides !");
+            player.sendMessage("§2Farmer §7→ §aFast grow !");
         }
 
         // Nv 3: Fertilisation Divine (5% de chance de drop une nourriture rare)
@@ -255,7 +255,7 @@ public class Reward {
                 block.getWorld().dropItemNaturally(block.getLocation(), rareDrop);
                 player.getInventory().addItem(new ItemStack(Material.DIAMOND, 3));
                 player.getInventory().addItem(new ItemStack(Material.EMERALD, 1));
-                player.sendMessage("§2Fermier §7→ §aFertilisation Divine ! (Drop rare)");
+                player.sendMessage("§2Farmer §7→ §aDivine fertilized ! (Rare drop)");
             }
         }
 
@@ -263,7 +263,7 @@ public class Reward {
 
         if (lvlFarmer >= 4 && random.nextDouble() < 0.01) {
             player.setHealth(+2);
-            player.sendMessage("§2Fermier §7→ §dMoisson Sans Effort (Vie restaurée)");
+            player.sendMessage("§2Farmer §7→ §dEffortless");
         }
 
         // Nv 5: Vitalité Agricole (10% de chance de drop nourriture supplémentaire)
@@ -272,7 +272,7 @@ public class Reward {
             for (ItemStack drop : drops) {
                 block.getWorld().dropItemNaturally(block.getLocation(), drop.clone());
             }
-            player.sendMessage("§2Fermier §7→ §aVitalité Agricole ! (Drop supplémentaire)");
+            player.sendMessage("§2Farmer §7→ §aFarmer's life !");
         }
     }
 
@@ -289,7 +289,7 @@ public class Reward {
         // Nv 2: Butin Abondant (15% de chance de double drop sur les animaux)
         if (lvlHunter >= 2 && JobsManager.isAnimal(entity.getType()) && random.nextDouble() < 0.15) {
             // L'EntityDeathEvent Listener doit dupliquer le loot.
-            player.sendMessage("§cChasseur §7→ §6Butin abondant ! (Double Loot)");
+            player.sendMessage("§chunter §7→ §6Mega loot ! (Double Loot)");
         }
 
         // Nv 4: Visée Précise (5% de chance d’infliger un crit bonus)
@@ -297,14 +297,14 @@ public class Reward {
             double bonusDamage = 4.0; // 2 cœurs
             if (entity instanceof org.bukkit.entity.LivingEntity living) {
                 living.damage(bonusDamage, player);
-                player.sendMessage("§cChasseur §7→ §bVisée Précise ! (+2 cœurs)");
+                player.sendMessage("§chunter §7→ §bCritical shot ! (+2 heart)");
             }
         }
 
         // Nv 5: Instinct de Survie (5% de chance de régénérer un cœur après kill)
         if (lvlHunter >= 5 && JobsManager.isAnimal(entity.getType())) {
             player.setHealth(+10);
-            player.sendMessage("§cChasseur §7→ §dInstinct de Survie ! (Vie restaurée)");
+            player.sendMessage("§chunter §7→ §dSurvivor !");
         }
     }
 
@@ -319,20 +319,20 @@ public class Reward {
             // Nv 2: Hameçon Robuste (10% de chance de drop 1 poisson supplémentaire)
             if (lvlFisher >= 2 && JobsManager.isFish(fish.getType()) && random.nextDouble() < 0.10) {
                 caughtItem.getWorld().dropItemNaturally(caughtItem.getLocation(), fish.clone());
-                player.sendMessage("§bPêcheur §7→ §aHameçon Robuste ! (+1 Poisson)");
+                player.sendMessage("§bFisher §7→ §aMore and more !");
             }
 
             // Nv 3: Aimant à Trésor (5% de chance de drop un objet rare)
             if (lvlFisher >= 3 && random.nextDouble() < 0.05) {
                 ItemStack treasure = new ItemStack(Material.ENCHANTED_BOOK, 1); // exemple de trésor
                 caughtItem.getWorld().dropItemNaturally(caughtItem.getLocation(), treasure);
-                player.sendMessage("§bPêcheur §7→ §6Aimant à Trésor ! (Drop Rare)");
+                player.sendMessage("§bFisher §7→ §6Magnet ! (Rare drop)");
             }
 
             // Nv 5: Maître des Abysses (25% de chance de looter 10 poissons supplémentaires)
             if (lvlFisher >= 5 && JobsManager.isFish(fish.getType()) && random.nextDouble() < 0.25) {
                 fish.setAmount(fish.getAmount() + 10);
-                player.sendMessage("§bPêcheur §7→ §bMaître des Abysses ! (Double Poisson)");
+                player.sendMessage("§bFisher §7→ §bMaster of the sea ! x10 fish");
             }
         }
     }
@@ -345,25 +345,25 @@ public class Reward {
         // Nv 1: Stabilité / Saut Amélioré (effet Jump Boost léger)
         if (lvlBuilder >= 1) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP_BOOST, 20 * 5, 0));
-            player.sendMessage("§9Constructeur §7→ §aStabilité / Saut Amélioré !");
+            player.sendMessage("§9Builder §7→ §aJump boost !");
         }
 
         // Nv 2: Récupération (10% de chance de drop le bloc placé)
         if (lvlBuilder >= 2 && random.nextDouble() < 0.10) {
             block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(block.getType(), 1));
-            player.sendMessage("§9Constructeur §7→ §aRécupération ! (+1 Bloc)");
+            player.sendMessage("§9Builder §7→ §aGet back !");
         }
 
         // Nv 4: Outils Légers (optionnel: bonus de vitesse ou chance de drop supplémentaire)
         if (lvlBuilder >= 4 && random.nextDouble() < 0.05) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.HASTE, 20, 5));
-            player.sendMessage("§9Constructeur §7→ §aOutils Légers ! (Bonus actif)");
+            player.sendMessage("§9Builder §7→ §aFast Builder !");
             // Ici tu pourrais appliquer un effet de minage léger si tu veux
         }
 
         // Nv 5: Main du Maître (3% de chance de ne pas consommer le bloc)
         if (lvlBuilder >= 5 && random.nextDouble() < 0.03) {
-            player.sendMessage("§9Constructeur §7→ §eMain du Maître ! (Bloc non consommé)");
+            player.sendMessage("§9Builder §7→ §eMaster builder !");
             // Le vrai annulation de consommation doit être traité dans le BlockPlaceEvent Listener
         }
     }

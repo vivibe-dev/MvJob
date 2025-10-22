@@ -233,7 +233,7 @@ public class JobsManager {
         while (currentLvl < 5 && currentXp >= xpNeeded) {
             currentXp -= xpNeeded;
             currentLvl++;
-            player.sendMessage("§a" + jobName + " §7→ §bNiveau §e" + currentLvl + " ! Nouveau passif débloqué.");
+            player.sendMessage("§a" + jobName + " §7→ §bLevel §e" + currentLvl + " ! New Reward unlocked.");
 
             // APPEL : Met à jour les effets permanents après un niveau
             Reward.applyPermanentEffects(player, job);

@@ -25,7 +25,7 @@ public class CommandManager implements CommandExecutor, TabCompleter {
 
         // Vérifie que c'est bien un joueur
         if (!(sender instanceof Player)) {
-            sender.sendMessage("§cSeuls les joueurs peuvent utiliser cette commande !");
+            sender.sendMessage("§cOnly Players can use this command !");
             return true;
         }
 
@@ -42,10 +42,10 @@ public class CommandManager implements CommandExecutor, TabCompleter {
             // Gestion des sous-commandes
             if (args[0].equalsIgnoreCase("help")) {
                 player.sendMessage("§6===== §aMVJob §6=====");
-                player.sendMessage("§a/mvjob help - Affiche cette aide");
-                player.sendMessage("§a/mvjob version - affiche la version du build");
-                player.sendMessage("§a/mvjob job - Ouvre le menu des jobs");
-                player.sendMessage("§a/mvjob progress - Montre la progression des metier");
+                player.sendMessage("§a/mvjob help - show this ");
+                player.sendMessage("§a/mvjob version - show the build");
+                player.sendMessage("§a/mvjob job - open job's menu");
+                player.sendMessage("§a/mvjob progress - open progress menu");
                 player.sendMessage("§6===================");
                 return true; // IMPORTANT : on retourne après le help
             }
@@ -70,24 +70,24 @@ public class CommandManager implements CommandExecutor, TabCompleter {
                     OfflinePlayer target = Bukkit.getOfflinePlayer(uuid);
 
                     if (target != null && target.getName() != null) {
-                        player.sendMessage("§aLe pseudo de cet UUID est: §6" + target.getName());
+                        player.sendMessage("§aThe username for this uuid is: §6" + target.getName());
                     } else {
-                        player.sendMessage("§cAucun joueur trouvé avec cet UUID.");
+                        player.sendMessage("§cNo player found with this uuid.");
                     }
 
                 } catch (IllegalArgumentException e) {
-                    player.sendMessage("§cUUID invalide.");
+                    player.sendMessage("§cinvalid UUID.");
                 }
                 return true;
                 }
                 else if (args[0].equalsIgnoreCase("addxp")) {
                     if (!sender.isOp()) {
-                        sender.sendMessage("§cVous n'avez pas la permission d'utiliser cette commande.");
+                        sender.sendMessage("§cYou don't have to permission to use this command.");
                         return true;
                     }
 
                     if (args.length < 4) {
-                        sender.sendMessage("§cUsage: /mvjob addxp [joueur] [métier] [montant]");
+                        sender.sendMessage("§cUsage: /mvjob addxp [player] [job] [amount]");
                         return true;
                     }
 
@@ -98,27 +98,27 @@ public class CommandManager implements CommandExecutor, TabCompleter {
                     try {
                         amount = Float.parseFloat(args[3]);
                     } catch (NumberFormatException e) {
-                        sender.sendMessage("§cLe montant d'XP doit être un nombre valide.");
+                        sender.sendMessage("§cThe amount must be valid.");
                         return true;
                     }
 
                     // Vérifier si le métier est valide
                     if (!Arrays.asList("miner", "lumberjack", "farmer", "hunter", "fisher", "builder").contains(jobName.toLowerCase())) {
-                        sender.sendMessage("§cMétier invalide. Choix: miner, lumberjack, farmer, hunter, fisher, builder.");
+                        sender.sendMessage("§cInvalid Job.");
                         return true;
                     }
 
                     // Trouver l'OfflinePlayer (pour l'UUID)
                     OfflinePlayer target = Bukkit.getOfflinePlayer(targetName);
                     if (target == null || target.getUniqueId() == null) {
-                        sender.sendMessage("§cAucun joueur trouvé avec le nom: " + targetName);
+                        sender.sendMessage("§cNo one found with the username: " + targetName);
                         return true;
                     }
 
                     // Récupérer l'objet Jobs
                     Jobs job = Mvjob.GetJobsByUUID(target.getUniqueId());
                     if (job == null) {
-                        sender.sendMessage("§cImpossible de charger les données de Jobs pour " + targetName + ". Est-il déjà venu sur le serveur ?");
+                        sender.sendMessage("§cimpossible to load data for " + targetName);
                         return true;
                     }
 
@@ -127,7 +127,7 @@ public class CommandManager implements CommandExecutor, TabCompleter {
                     JobsManager.addXp(job, jobName, amount, (Player) target);
 
                     // Message de succès
-                    sender.sendMessage("§aSuccès ! §6" + amount + " XP §aajoutée à §b" + targetName + " §apour le métier §e" + jobName + ".");
+                    sender.sendMessage("§aSuccess ! §6" + amount + " XP §aadded to §b" + targetName + " §afor §e" + jobName + ".");
                     return true;
                 }
                 else if (args[0].equalsIgnoreCase("progress")){
@@ -141,7 +141,7 @@ public class CommandManager implements CommandExecutor, TabCompleter {
             // ...
 
             // Si aucun des cas n'a matché
-            player.sendMessage("§cCommande inconnue, faites /mvjob help pour plus d'info !");
+            player.sendMessage("§cCommand Unfound /mvjob help to get more information !");
             return true;
         }
 

@@ -35,11 +35,11 @@ public class JobGui2 {
         // --- Définition des métiers avec leur slot principal + 5 récompenses ---
         record JobLayout(String key, String name, Material icon, int mainSlot, int... rewardSlots) {}
         JobLayout[] layouts = new JobLayout[] {
-                new JobLayout("miner", "§bMineur", Material.DIAMOND_PICKAXE, 1, 2, 3, 4, 5, 6),
-                new JobLayout("lumberjack", "§aBûcheron", Material.IRON_AXE, 10, 11, 12, 13, 14, 15),
-                new JobLayout("hunter", "§cChasseur", Material.BOW, 19, 20, 21, 22, 23, 24),
-                new JobLayout("farmer", "§eFermier", Material.WHEAT, 28, 29, 30, 31, 32, 33),
-                new JobLayout("fisher", "§9Pêcheur", Material.FISHING_ROD, 37, 38, 39, 40, 41, 42),
+                new JobLayout("miner", "§bMiner", Material.DIAMOND_PICKAXE, 1, 2, 3, 4, 5, 6),
+                new JobLayout("lumberjack", "§aLumberjack", Material.IRON_AXE, 10, 11, 12, 13, 14, 15),
+                new JobLayout("hunter", "§cHunter", Material.BOW, 19, 20, 21, 22, 23, 24),
+                new JobLayout("farmer", "§eFarmer", Material.WHEAT, 28, 29, 30, 31, 32, 33),
+                new JobLayout("fisher", "§9Fisher", Material.FISHING_ROD, 37, 38, 39, 40, 41, 42),
                 new JobLayout("builder", "§6Builder", Material.BRICK, 46, 47, 48, 49, 50, 51)
         };
 
@@ -64,10 +64,10 @@ public class JobGui2 {
         ItemStack item = new ItemStack(lvlIcon);
         ItemMeta meta = item.getItemMeta();
 
-        meta.setDisplayName(displayName + " §7- §eNv §f" + level);
+        meta.setDisplayName(displayName + " §7- §elvl §f" + level);
 
         List<String> lore = new ArrayList<>();
-        lore.add("§7XP Totale: §b" + (int)xp);
+        lore.add("§7Total xp: §b" + (int)xp);
 
         // On travaille sur le niveau MAXIMUM (le niveau 5 dans ce cas)
         if (level < 5) {
@@ -81,10 +81,10 @@ public class JobGui2 {
             float xpMissing = Math.max(0, xpTarget - xp);
 
             // Affichage
-            lore.add("§7Prochain Nv: §f" + (level + 1) + " §7(§b" + (int)xpMissing + " XP§7)");
+            lore.add("§7Next level: §f" + (level + 1) + " §7(§b" + (int)xpMissing + " XP§7)");
 
         } else {
-            lore.add("§6Niveau Maximum atteint !");
+            lore.add("§6Maximal level reached !");
         }
 
         meta.setLore(lore);
@@ -127,7 +127,7 @@ public class JobGui2 {
         ItemMeta meta = item.getItemMeta();
 
         // Nom compact
-        meta.setDisplayName(statusPrefixColor + "[Nv " + level + "] §7- " + getRewardDescription(jobKey, level));
+        meta.setDisplayName(statusPrefixColor + "[lvl " + level + "] §7- " + getRewardDescription(jobKey, level));
 
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         item.setItemMeta(meta);
@@ -154,60 +154,60 @@ public class JobGui2 {
         switch (jobName.toLowerCase()) {
             case "miner":
                 return switch (level) {
-                    case 1 -> "Vision Nocturne permanente";
-                    case 2 -> "5% chance de creuser 5X5X5 en laissant les minerais";
-                    case 3 -> "Résistance I permanente";
-                    case 4 -> "Hâte I permanente";
-                    case 5 -> "2% chance d'Auto-Smelt";
-                    default -> "Inconnu.";
+                    case 1 -> "Permanent night vision";
+                    case 2 -> "5% chance to mine a 5x5x5 area while keeping ores";
+                    case 3 -> "Permanent Resistance I";
+                    case 4 -> "Permanent Haste I";
+                    case 5 -> "2% chance of Auto-Smelt";
+                    default -> "Unknown.";
                 };
             case "lumberjack":
                 return switch (level) {
-                    case 1 -> "35% d'avoir speed";
-                    case 2 -> "20% d'avoir x2 buche";
-                    case 3 -> "20% chance +1 Pousse";
-                    case 4 -> "Force I permanente";
-                    case 5 -> "Coupe l'arbre entier";
-                    default -> "Inconnu.";
+                    case 1 -> "35% chance to get Speed";
+                    case 2 -> "20% chance to get double logs";
+                    case 3 -> "20% chance to get +1 sapling";
+                    case 4 -> "Permanent Strength I";
+                    case 5 -> "Cuts the entire tree";
+                    default -> "Unknown.";
                 };
             case "farmer":
                 return switch (level) {
-                    case 1 -> "5% chance de double rendement";
-                    case 2 -> "10% chance de pousse instantanée";
-                    case 3 -> "5% de drop rare nourriture et minerai";
-                    case 4 -> "1% chance de restaurer 0.5 cœur";
-                    case 5 -> "10% de drop supplementaire";
-                    default -> "Inconnu.";
+                    case 1 -> "5% chance of double yield";
+                    case 2 -> "10% chance of instant growth";
+                    case 3 -> "5% chance to drop rare food or ore";
+                    case 4 -> "1% chance to restore 0.5 heart";
+                    case 5 -> "10% chance of additional drops";
+                    default -> "Unknown.";
                 };
             case "hunter":
                 return switch (level) {
-                    case 1 -> "Vitesse I après un kill";
-                    case 2 -> "15% chance de double drop animal";
-                    case 3 -> "Absorption permanente";
-                    case 4 -> "5% d'infliger 2 coeur de plus";
-                    case 5 -> "regénérer 5 coeur par kill";
-                    default -> "Inconnu.";
+                    case 1 -> "Speed I after a kill";
+                    case 2 -> "15% chance of double animal drops";
+                    case 3 -> "Permanent Absorption";
+                    case 4 -> "5% chance to deal 2 extra hearts";
+                    case 5 -> "Regenerate 5 hearts per kill";
+                    default -> "Unknown.";
                 };
             case "fisher":
                 return switch (level) {
-                    case 1 -> "Respiration Aquatique permanente";
-                    case 2 -> "10% chance de 2x drop";
-                    case 3 -> "5% de tresor en plus";
-                    case 4 -> "Effet Dauphin permanent";
-                    case 5 -> "25% chance de drop x10 poisson";
-                    default -> "Inconnu.";
+                    case 1 -> "Permanent Water Breathing";
+                    case 2 -> "10% chance of double drop";
+                    case 3 -> "5% more treasure";
+                    case 4 -> "Permanent Dolphin's Grace";
+                    case 5 -> "25% chance to drop 10x fish";
+                    default -> "Unknown.";
                 };
             case "builder":
                 return switch (level) {
-                    case 1 -> "Jump I";
-                    case 2 -> "10% chance de récupérer le bloc posé";
-                    case 3 -> "Hâte II permanente";
-                    case 4 -> "5% de 20s Hâte V";
-                    case 5 -> "3% chance de ne pas consommer le bloc";
-                    default -> "Inconnu.";
+                    case 1 -> "Jump Boost I";
+                    case 2 -> "10% chance to recover the placed block";
+                    case 3 -> "Permanent Haste II";
+                    case 4 -> "5% chance for 20s of Haste V";
+                    case 5 -> "3% chance to not consume the block";
+                    default -> "Unknown.";
                 };
             default:
-                return "Métier inconnu.";
+                return "Unknown job.";
         }
     }
 }
