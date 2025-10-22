@@ -7,6 +7,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 
 import java.util.*;
 import java.util.function.BiConsumer;
@@ -134,6 +135,38 @@ public class CommandManager implements CommandExecutor, TabCompleter {
                     JobGui2.openGui(player);
                     return true;
                 }
+                else if (args[0].equalsIgnoreCase("delete")) {
+                    if (args.length < 2) {
+                        player.sendMessage("§cUsage /mvjob delete [player]");
+                        return true;
+                    }
+
+                    String playertodelete = args[1];
+                    OfflinePlayer target = Bukkit.getOfflinePlayer(playertodelete);
+
+                    if (target == null || (!target.hasPlayedBefore() && !target.isOnline())) {
+                        player.sendMessage("§cCe joueur n'existe pas ou ne s'est jamais connecté.");
+                        return true;
+                    }
+
+                    Jobs job = Mvjob.GetJobsByUUID(target.getUniqueId());
+                    if (job == null) {
+                        player.sendMessage("§cAucun job trouvé pour ce joueur.");
+                        return true;
+                    }
+
+                    CommandManager.Data.jobsList.remove(job);
+                    Mvjob.savedata();
+
+                    Plugin plugin = Bukkit.getPluginManager().getPlugin("MVJob");
+                    if (plugin != null) {
+                        Bukkit.getPluginManager().disablePlugin(plugin);
+                        Bukkit.getPluginManager().enablePlugin(plugin);
+                    }
+
+                    player.sendMessage("§aLe job de " + target.getName() + " a bien été supprimé et le plugin a été rechargé.");
+                    return true;
+                }
 
 
 
@@ -151,58 +184,38 @@ public class CommandManager implements CommandExecutor, TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         List<String> suggestions = new ArrayList<>();
-        Player player = (Player) sender;
 
-        if (!(sender instanceof Player)) return suggestions;
+        if (!(sender instanceof Player player)) return suggestions;
 
         // Sous-commandes principales
         if (args.length == 1) {
-            suggestions.add("job");
-            suggestions.add("progress");
-            suggestions.add("pseudo");
-            suggestions.add("help");
-            suggestions.add("version");
-            if (player.isOp()){
-                suggestions.add("addxp");
-            }
+            suggestions.addAll(List.of("job", "progress", "pseudo", "help", "version"));
+            if (player.isOp()) suggestions.addAll(List.of("addxp", "delete"));
             return suggestions;
         }
 
-        if (args.length == 2 && args[0].equalsIgnoreCase("addxp") && player.isOp()) {
-            // ici tu peux rajouter tous les UUID connus
-            List<String> players = Mvjob.GetPlayersName();
-            for (String player1 : players){
-                suggestions.add(player1);
-            }
+        // /mvjob addxp [player] ou /mvjob delete [player]
+        if (args.length == 2 && player.isOp() &&
+                (args[0].equalsIgnoreCase("addxp") || args[0].equalsIgnoreCase("delete"))) {
 
+            suggestions.addAll(Mvjob.GetPlayersName());
             return suggestions;
         }
 
-        // /mvjob pseudo [uuid]
+        // /mvjob addxp [player] [job]
         if (args.length == 3 && args[0].equalsIgnoreCase("addxp") && player.isOp()) {
-            // ici tu peux rajouter tous les UUID connus
-            suggestions.add("miner");
-            suggestions.add("lumberjack");
-            suggestions.add("hunter");
-            suggestions.add("farmer");
-            suggestions.add("fisher");
-            suggestions.add("builder");
+            suggestions.addAll(List.of("miner", "lumberjack", "hunter", "farmer", "fisher", "builder"));
             return suggestions;
         }
 
+        // /mvjob addxp [player] [job] [amount]
         if (args.length == 4 && args[0].equalsIgnoreCase("addxp") && player.isOp()) {
-            // ici tu peux rajouter tous les UUID connus
-            suggestions.add("1");
-            suggestions.add("10");
-            suggestions.add("25");
-            suggestions.add("50");
-            suggestions.add("100");
-            suggestions.add("1000");
-            suggestions.add("10000");
+            suggestions.addAll(List.of("1", "10", "25", "50", "100", "1000", "10000"));
             return suggestions;
         }
 
         return suggestions;
     }
+
 
 }

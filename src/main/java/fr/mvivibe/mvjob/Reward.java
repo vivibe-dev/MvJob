@@ -176,7 +176,7 @@ public class Reward {
         // --- Nv 5: Abattage Massif (Récursion - Doit être placé en premier sur les logs!) ---
         if (lvlLumberjack >= 5 && block.getType().toString().contains("LOG")) {
             // Ajout d'une chance de déclenchement (ex: 5%)
-            if (random.nextDouble() < 0.10) {
+            if (random.nextDouble() < 0.30) {
 
                 // Appel de la méthode récursive dans JobsManager (voir section 2)
                 JobsManager.breakConnectedLogs(block, player, 1000);
@@ -344,8 +344,8 @@ public class Reward {
 
         // Nv 1: Stabilité / Saut Amélioré (effet Jump Boost léger)
         if (lvlBuilder >= 1) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP_BOOST, 20 * 5, 0));
-            player.sendMessage("§9Builder §7→ §aJump boost !");
+            player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 20 * 5, 0));
+            player.sendMessage("§9Builder §7→ §aResistance boost !");
         }
 
         // Nv 2: Récupération (10% de chance de drop le bloc placé)

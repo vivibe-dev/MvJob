@@ -199,7 +199,7 @@ public class JobGui2 {
                 };
             case "builder":
                 return switch (level) {
-                    case 1 -> "Jump Boost I";
+                    case 1 -> "Resistance II infinite";
                     case 2 -> "10% chance to recover the placed block";
                     case 3 -> "Permanent Haste II";
                     case 4 -> "5% chance for 20s of Haste V";
