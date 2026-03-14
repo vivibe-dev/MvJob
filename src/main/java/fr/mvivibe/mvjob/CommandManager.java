@@ -17,6 +17,8 @@ public class CommandManager implements CommandExecutor, TabCompleter {
     private final Map<String, BiConsumer<CommandSender, String[]>> commands = new HashMap<>();
     public static Data Data;
 
+    public static boolean CHOICE = Mvjob.CHOICE;
+
     public CommandManager(Data dataa) {
         Data = dataa;
     }
@@ -179,6 +181,10 @@ public class CommandManager implements CommandExecutor, TabCompleter {
         }
 
         return true;
+    }
+
+    public static void updateChoice() {
+        CHOICE = Mvjob.CHOICE;
     }
 
     @Override

@@ -25,6 +25,9 @@ public class Reward {
     // Durée maximale (en ticks) pour un effet "permanent"
     private static final int PERMANENT_DURATION = Integer.MAX_VALUE;
 
+
+
+
     // =========================================================================
     // --- PARTIE 1 : APPLICATION DES EFFETS PERMANENTS (Scheduler & Level Up) ---
     // =========================================================================
@@ -37,19 +40,19 @@ public class Reward {
 
         // --- MINEUR ---
         // Nv 1: Vision Profonde (Vision Nocturne)
-        if (JobsManager.getLevel(job, "miner") >= 1) {
+        if (JobsManager.getLevel(job, "miner") >= 1 && job.Choice) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, PERMANENT_DURATION, 0, false, false));
         } else {
             player.removePotionEffect(PotionEffectType.NIGHT_VISION);
         }
         // Nv 3: Résistance Tellurique (Résistance I)
-        if (JobsManager.getLevel(job, "miner") >= 3) {
+        if (JobsManager.getLevel(job, "miner") >= 3 && job.Choice) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, PERMANENT_DURATION, 0, false, false));
         } else {
             player.removePotionEffect(PotionEffectType.RESISTANCE);
         }
         // Nv 4: Force Minière (Hâte I)
-        if (JobsManager.getLevel(job, "miner") >= 4) {
+        if (JobsManager.getLevel(job, "miner") >= 4 && job.Choice) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.HASTE, PERMANENT_DURATION, 0, false, false));
         } else {
             player.removePotionEffect(PotionEffectType.HASTE);
@@ -57,7 +60,7 @@ public class Reward {
 
         // --- BUCHERON ---
         // Nv 4: Poigne du Forgeron (Force I)
-        if (JobsManager.getLevel(job, "lumberjack") >= 4) {
+        if (JobsManager.getLevel(job, "lumberjack") >= 4 && job.Choice) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, PERMANENT_DURATION, 0, false, false));
         } else {
             player.removePotionEffect(PotionEffectType.STRENGTH);
@@ -65,13 +68,13 @@ public class Reward {
 
         // --- PECHEUR ---
         // Nv 1: Poumon Marin (Respiration Aquatique)
-        if (JobsManager.getLevel(job, "fisher") >= 1) {
+        if (JobsManager.getLevel(job, "fisher") >= 1 && job.Choice) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, PERMANENT_DURATION, 0, false, false));
         } else {
             player.removePotionEffect(PotionEffectType.WATER_BREATHING);
         }
         // Nv 4: Grâce des Dauphins
-        if (JobsManager.getLevel(job, "fisher") >= 4) {
+        if (JobsManager.getLevel(job, "fisher") >= 4 && job.Choice) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.DOLPHINS_GRACE, PERMANENT_DURATION, 0, false, false));
         } else {
             player.removePotionEffect(PotionEffectType.DOLPHINS_GRACE);
@@ -79,7 +82,7 @@ public class Reward {
 
         // --- BUILDER ---
         // Nv 3: Rapidité de Pose (Hâte I)
-        if (JobsManager.getLevel(job, "builder") >= 3) {
+        if (JobsManager.getLevel(job, "builder") >= 3 && job.Choice) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.HASTE, PERMANENT_DURATION, 0, false, false));
         } else {
             player.removePotionEffect(PotionEffectType.HASTE);
@@ -89,7 +92,7 @@ public class Reward {
 
         // Hunter Nv 3: Cœur de Traqueur (Santé Maximale 21 PV)
         double maxHealth = 20.0;
-        if (JobsManager.getLevel(job, "hunter") >= 3) {
+        if (JobsManager.getLevel(job, "hunter") >= 3 && job.Choice) {
             maxHealth = 21.0;
             player.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, PERMANENT_DURATION, 0, false, false));
         } else {
@@ -101,12 +104,12 @@ public class Reward {
         }
 
         // Builder Nv 1: Stabilité (Knockback Resistance approximée)
-        if (JobsManager.getLevel(job, "builder") >= 1) {
+        if (JobsManager.getLevel(job, "builder") >= 1 && job.Choice) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, PERMANENT_DURATION, 0, false, false));
         } else {
             player.removePotionEffect(PotionEffectType.RESISTANCE);
         }
-        if (JobsManager.getLevel(job, "builder") >= 3) {
+        if (JobsManager.getLevel(job, "builder") >= 3 && job.Choice) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.HASTE, PERMANENT_DURATION, 2, false, false));
         } else {
             player.removePotionEffect(PotionEffectType.HASTE);
@@ -122,7 +125,7 @@ public class Reward {
         int lvlMiner = JobsManager.getLevel(job, "miner");
 
         // Nv 5: Fusion Arcanique (2% d'Auto-Smelt)
-        if (lvlMiner >= 5 && JobsManager.isSmeltable(block.getType()) && random.nextDouble() < 0.02) {
+        if (lvlMiner >= 5 && JobsManager.isSmeltable(block.getType()) && random.nextDouble() < 0.02 && job.Choice) {
             ItemStack result = JobsManager.getSmeltResult(block.getType());
 
             if (result != null) {
@@ -132,7 +135,7 @@ public class Reward {
             }
         }
         // Nv 2 (Toucher Délicat) et Nv 3 (Résistance Tellurique) sont gérés ailleurs.
-        if (lvlMiner >= 2 && random.nextDouble() < 0.05) { // 20% de chance
+        if (lvlMiner >= 2 && random.nextDouble() < 0.05 && job.Choice) { // 20% de chance
             for (int x = -2; x <= 2; x++) {
                 for (int y = -2; y <= 2; y++) {
                     for (int z = -2; z <= 2; z++) {
@@ -156,14 +159,14 @@ public class Reward {
 
         // --- Nv 1: Sève Énergisante (Vitesse I) ---
         // Le niveau 1 est souvent un effet simple et garanti
-        if (lvlLumberjack >= 1 && block.getType().toString().contains("LOG")) {
+        if (lvlLumberjack >= 1 && block.getType().toString().contains("LOG") && job.Choice) {
             if (!(random.nextDouble() < 0.35))return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20 * 5, 0));
             player.sendMessage("§3lumberjack §7→ §aEnergising !");
         }
 
         // --- Nv 2: Morsure de la Hache (Réparation de la hache) ---
-        if (lvlLumberjack >= 2 && block.getType().toString().contains("LOG") && random.nextDouble() < 0.2) {
+        if (lvlLumberjack >= 2 && block.getType().toString().contains("LOG") && random.nextDouble() < 0.2 && job.Choice) {
 
             // La méthode breakNaturally() a déjà fait dropper le bloc principal.
             // On récupère le drop (bûche) pour le doubler.
@@ -174,7 +177,7 @@ public class Reward {
         }
 
         // --- Nv 5: Abattage Massif (Récursion - Doit être placé en premier sur les logs!) ---
-        if (lvlLumberjack >= 5 && block.getType().toString().contains("LOG")) {
+        if (lvlLumberjack >= 5 && block.getType().toString().contains("LOG") && job.Choice) {
             // Ajout d'une chance de déclenchement (ex: 5%)
             if (random.nextDouble() < 0.30) {
 
@@ -192,7 +195,7 @@ public class Reward {
         }
 
         // --- Nv 3: Main Verte (Feuilles) ---
-        if (lvlLumberjack >= 3 && block.getType().toString().contains("LEAVES") && random.nextDouble() < 0.20) {
+        if (lvlLumberjack >= 3 && block.getType().toString().contains("LEAVES") && random.nextDouble() < 0.20 && job.Choice) {
             Material saplingType = switch(block.getType().name()) {
                 case "OAK_LEAVES" -> Material.OAK_SAPLING;
                 case "SPRUCE_LEAVES" -> Material.SPRUCE_SAPLING;
@@ -218,7 +221,7 @@ public class Reward {
         int lvlFarmer = JobsManager.getLevel(job, "farmer");
 
         // Nv 1: Bonne Récolte I (5% de chance de rendement double)
-        if (lvlFarmer >= 1 && JobsManager.isCrop(block.getType()) && random.nextDouble() < 0.05) {
+        if (lvlFarmer >= 1 && JobsManager.isCrop(block.getType()) && random.nextDouble() < 0.05 && job.Choice) {
             Collection<ItemStack> drops = block.getDrops();
             for (ItemStack drop : drops) {
                 block.getWorld().dropItemNaturally(block.getLocation(), drop.clone());
@@ -227,7 +230,7 @@ public class Reward {
         }
 
         // Nv 2: Semences Rapides (accélère la pousse des cultures voisines)
-        if (lvlFarmer >= 2 && JobsManager.isCrop(block.getType()) && random.nextDouble() < 0.10) { // 10% chance
+        if (lvlFarmer >= 2 && JobsManager.isCrop(block.getType()) && random.nextDouble() < 0.10 && job.Choice) { // 10% chance
             for (int x = -1; x <= 1; x++) {
                 for (int y = -1; y <= 1; y++) {
                     for (int z = -1; z <= 1; z++) {
@@ -243,7 +246,7 @@ public class Reward {
         }
 
         // Nv 3: Fertilisation Divine (5% de chance de drop une nourriture rare)
-        if (lvlFarmer >= 3 && JobsManager.isCrop(block.getType()) && random.nextDouble() < 0.05) {
+        if (lvlFarmer >= 3 && JobsManager.isCrop(block.getType()) && random.nextDouble() < 0.05 && job.Choice) {
             ItemStack rareDrop = switch(block.getType()) {
                 case WHEAT -> new ItemStack(Material.BREAD, 1);
                 case CARROTS -> new ItemStack(Material.GOLDEN_CARROT, 1);
@@ -261,13 +264,13 @@ public class Reward {
 
         // Nv 4: Moisson Sans Effort (1% de chance de régénérer un demi-cœur)
 
-        if (lvlFarmer >= 4 && random.nextDouble() < 0.01) {
+        if (lvlFarmer >= 4 && random.nextDouble() < 0.01 && job.Choice) {
             player.setHealth(+2);
             player.sendMessage("§2Farmer §7→ §dEffortless");
         }
 
         // Nv 5: Vitalité Agricole (10% de chance de drop nourriture supplémentaire)
-        if (lvlFarmer >= 5 && JobsManager.isCrop(block.getType()) && random.nextDouble() < 0.10) {
+        if (lvlFarmer >= 5 && JobsManager.isCrop(block.getType()) && random.nextDouble() < 0.10 && job.Choice) {
             Collection<ItemStack> drops = block.getDrops();
             for (ItemStack drop : drops) {
                 block.getWorld().dropItemNaturally(block.getLocation(), drop.clone());
@@ -282,18 +285,18 @@ public class Reward {
         int lvlHunter = JobsManager.getLevel(job, "hunter");
 
         // Nv 1: Sens Aiguisé (Speed 0 pendant 5s)
-        if (lvlHunter >= 1) {
+        if (lvlHunter >= 1 && job.Choice) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20 * 5, 0));
         }
 
         // Nv 2: Butin Abondant (15% de chance de double drop sur les animaux)
-        if (lvlHunter >= 2 && JobsManager.isAnimal(entity.getType()) && random.nextDouble() < 0.15) {
+        if (lvlHunter >= 2 && JobsManager.isAnimal(entity.getType()) && random.nextDouble() < 0.15 && job.Choice) {
             // L'EntityDeathEvent Listener doit dupliquer le loot.
             player.sendMessage("§chunter §7→ §6Mega loot ! (Double Loot)");
         }
 
         // Nv 4: Visée Précise (5% de chance d’infliger un crit bonus)
-        if (lvlHunter >= 4 && JobsManager.isAnimal(entity.getType()) && random.nextDouble() < 0.05) {
+        if (lvlHunter >= 4 && JobsManager.isAnimal(entity.getType()) && random.nextDouble() < 0.05 && job.Choice) {
             double bonusDamage = 4.0; // 2 cœurs
             if (entity instanceof org.bukkit.entity.LivingEntity living) {
                 living.damage(bonusDamage, player);
@@ -302,7 +305,7 @@ public class Reward {
         }
 
         // Nv 5: Instinct de Survie (5% de chance de régénérer un cœur après kill)
-        if (lvlHunter >= 5 && JobsManager.isAnimal(entity.getType())) {
+        if (lvlHunter >= 5 && JobsManager.isAnimal(entity.getType()) && job.Choice) {
             player.setHealth(+10);
             player.sendMessage("§chunter §7→ §dSurvivor !");
         }
@@ -317,20 +320,20 @@ public class Reward {
             ItemStack fish = caughtItem.getItemStack();
 
             // Nv 2: Hameçon Robuste (10% de chance de drop 1 poisson supplémentaire)
-            if (lvlFisher >= 2 && JobsManager.isFish(fish.getType()) && random.nextDouble() < 0.10) {
+            if (lvlFisher >= 2 && JobsManager.isFish(fish.getType()) && random.nextDouble() < 0.10 && job.Choice) {
                 caughtItem.getWorld().dropItemNaturally(caughtItem.getLocation(), fish.clone());
                 player.sendMessage("§bFisher §7→ §aMore and more !");
             }
 
             // Nv 3: Aimant à Trésor (5% de chance de drop un objet rare)
-            if (lvlFisher >= 3 && random.nextDouble() < 0.05) {
+            if (lvlFisher >= 3 && random.nextDouble() < 0.05 && job.Choice) {
                 ItemStack treasure = new ItemStack(Material.ENCHANTED_BOOK, 1); // exemple de trésor
                 caughtItem.getWorld().dropItemNaturally(caughtItem.getLocation(), treasure);
                 player.sendMessage("§bFisher §7→ §6Magnet ! (Rare drop)");
             }
 
             // Nv 5: Maître des Abysses (25% de chance de looter 10 poissons supplémentaires)
-            if (lvlFisher >= 5 && JobsManager.isFish(fish.getType()) && random.nextDouble() < 0.25) {
+            if (lvlFisher >= 5 && JobsManager.isFish(fish.getType()) && random.nextDouble() < 0.25 && job.Choice) {
                 fish.setAmount(fish.getAmount() + 10);
                 player.sendMessage("§bFisher §7→ §bMaster of the sea ! x10 fish");
             }
@@ -343,26 +346,26 @@ public class Reward {
         int lvlBuilder = JobsManager.getLevel(job, "builder");
 
         // Nv 1: Stabilité / Saut Amélioré (effet Jump Boost léger)
-        if (lvlBuilder >= 1) {
+        if (lvlBuilder >= 1 && job.Choice) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 20 * 5, 0));
             player.sendMessage("§9Builder §7→ §aResistance boost !");
         }
 
         // Nv 2: Récupération (10% de chance de drop le bloc placé)
-        if (lvlBuilder >= 2 && random.nextDouble() < 0.10) {
+        if (lvlBuilder >= 2 && random.nextDouble() < 0.10 && job.Choice) {
             block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(block.getType(), 1));
             player.sendMessage("§9Builder §7→ §aGet back !");
         }
 
         // Nv 4: Outils Légers (optionnel: bonus de vitesse ou chance de drop supplémentaire)
-        if (lvlBuilder >= 4 && random.nextDouble() < 0.05) {
+        if (lvlBuilder >= 4 && random.nextDouble() < 0.05 && job.Choice) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.HASTE, 20, 5));
             player.sendMessage("§9Builder §7→ §aFast Builder !");
             // Ici tu pourrais appliquer un effet de minage léger si tu veux
         }
 
         // Nv 5: Main du Maître (3% de chance de ne pas consommer le bloc)
-        if (lvlBuilder >= 5 && random.nextDouble() < 0.03) {
+        if (lvlBuilder >= 5 && random.nextDouble() < 0.03 && job.Choice) {
             player.sendMessage("§9Builder §7→ §eMaster builder !");
             // Le vrai annulation de consommation doit être traité dans le BlockPlaceEvent Listener
         }

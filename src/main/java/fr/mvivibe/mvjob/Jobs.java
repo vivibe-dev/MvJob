@@ -16,4 +16,5 @@ public class Jobs {
     int lvl_fisher;
     float xp_builder;
     int lvl_builder;
+    boolean Choice;
 }

@@ -12,6 +12,15 @@ import java.util.UUID;
 
 public final class Mvjob extends JavaPlugin {
 
+    public static boolean CHOICE = true;
+
+    public static void setChoice(boolean value, UUID uuid) {
+        CHOICE = value;
+        CommandManager.updateChoice();
+        Jobs job = GetJobsByUUID(uuid);
+        job.Choice = value;
+    }
+
     @Override
     public void onEnable() {
         getServer().getPluginManager().registerEvents(new Listeners(), this);

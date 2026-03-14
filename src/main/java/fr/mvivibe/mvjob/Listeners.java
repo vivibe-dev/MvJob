@@ -21,9 +21,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class Listeners implements Listener {
 
@@ -66,6 +64,7 @@ public class Listeners implements Listener {
             nouveauJob.lvl_fisher = 0;
             nouveauJob.xp_builder = 0;
             nouveauJob.lvl_builder = 0;
+            nouveauJob.Choice = true;
             CommandManager.Data.jobsList.add(nouveauJob);
             Mvjob.savedata();
         }
@@ -74,9 +73,50 @@ public class Listeners implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
-        onInventory(event);
-        if (event.getView().getTitle().equals("§6Jobs") || event.getView().getTitle().equals("§6Jobs progress") ) {
+        Player player = (Player) event.getWhoClicked();
+
+        // Vérifie qu'il y a bien un item cliqué avec un ItemMeta
+        if (event.getCurrentItem() == null || !event.getCurrentItem().hasItemMeta()) return;
+
+        String name = event.getCurrentItem().getItemMeta().getDisplayName();
+        String title = event.getView().getTitle();
+
+        Jobs job = Mvjob.GetJobsByUUID(player.getUniqueId());
+
+        // On cible uniquement le GUI "Jobs progress"
+        if (title.equals("§6Jobs progress")) {
             event.setCancelled(true); // empêche de déplacer les items
+
+            // Toggle CHOICE si c'est la barrière
+            if (name.equalsIgnoreCase("§bDeactivate Rewards") || name.equalsIgnoreCase("§bActivate Rewards")) {
+                Mvjob.setChoice(!job.Choice, player.getUniqueId()); // inverse la valeur
+
+
+                String a = "rien";
+
+                // Mettre à jour le displayName de la barrière dynamiquement
+                ItemStack barrier = new ItemStack(Material.BARRIER);
+                ItemMeta meta = barrier.getItemMeta();
+                if (job.Choice) {
+                    meta.setDisplayName("§bDeactivate Rewards");
+                    a = "oui";
+                } else {
+                    meta.setDisplayName("§bActivate Rewards");
+                    a = "non";
+                }
+                meta.setLore(Arrays.asList("§7Rewards choice"));
+                barrier.setItemMeta(meta);
+
+
+                player.sendMessage("changéééééé   ", a);
+
+                // Remplacer l'item à sa place dans l'inventaire
+                player.getOpenInventory().setItem(53, barrier);
+            }
+        }
+        // Pour les autres GUI comme "Jobs", on empêche juste le déplacement d'items
+        else if (title.equals("§6Jobs")) {
+            event.setCancelled(true);
         }
     }
 

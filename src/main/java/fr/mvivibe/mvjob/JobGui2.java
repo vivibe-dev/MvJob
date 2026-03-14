@@ -18,6 +18,7 @@ public class JobGui2 {
     private static final Material LOCKABLE_ICON = Material.YELLOW_STAINED_GLASS_PANE;
     private static final Material LOCKED_ICON = Material.RED_STAINED_GLASS_PANE;
 
+
     public static void openGui(Player player) {
         Jobs job = Mvjob.GetJobsByUUID(player.getUniqueId());
         if (job == null) return;
@@ -48,6 +49,24 @@ public class JobGui2 {
             inv.setItem(layout.mainSlot(), createJobStatsItem(job, layout.key(), layout.name(), layout.icon()));
             placeRewards(inv, job, layout.key(), layout.rewardSlots());
         }
+
+        ItemStack minerLvl = new ItemStack(Material.BARRIER);
+        ItemMeta minerLvlMeta = minerLvl.getItemMeta();
+
+        Jobs job1 = Mvjob.GetJobsByUUID(player.getUniqueId());
+
+        if (job1.Choice) {
+            minerLvlMeta.setDisplayName("§bDeactivate Rewards");
+        } else {
+            minerLvlMeta.setDisplayName("§bActivate Rewards");
+        }
+
+        minerLvlMeta.setLore(Arrays.asList("§7Rewards choice"));
+        minerLvl.setItemMeta(minerLvlMeta);
+
+        inv.setItem(53, minerLvl);
+
+
 
         player.openInventory(inv);
     }
